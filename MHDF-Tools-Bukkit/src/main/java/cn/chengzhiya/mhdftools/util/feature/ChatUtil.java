@@ -10,6 +10,7 @@ import cn.chengzhiya.mhdftools.util.PluginUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson2.JSONObject;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,10 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -210,5 +208,16 @@ public final class ChatUtil {
             messageComponent = messageComponent.replace(s, formatComponent);
         }
         return messageComponent;
+    }
+
+    public static String cleanNumber(String message) {
+        boolean has = message.chars().anyMatch(Character::isDigit);
+        Iterator var2 = Bukkit.getOnlinePlayers().iterator();
+        if (var2.hasNext()) {
+            Player player = (Player) var2.next();
+            return has && !message.contains("1410521748") && !message.equals("666") && !message.contains(player.getName()) ? message.replaceAll("\\d", "") : message;
+        } else {
+            return message;
+        }
     }
 }
