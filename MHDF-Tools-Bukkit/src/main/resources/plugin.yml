@@ -9,7 +9,9 @@ load: STARTUP
 authoendrs: [ ChengZhiMeow ]
 contributors: [ Dg32z_, Loyisa, Sn0wo2, jhqwqmc, sdfsfsk ]
 
-softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
+softdepend: [ Vault, MythicMobs, CraftEngine ]
+depend:
+  - PlaceholderAPI
 
 permissions:
   mhdftools.group.chatformat:

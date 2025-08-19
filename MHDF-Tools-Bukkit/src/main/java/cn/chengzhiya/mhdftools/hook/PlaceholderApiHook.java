@@ -37,7 +37,7 @@ public final class PlaceholderApiHook extends Hook {
      * @return 处理过后的文本
      */
     public String placeholder(OfflinePlayer player, String message) {
-        if (super.isEnable()) return this.getApi().placeholder(player, message);
+        if (super.isEnable() && api != null) return this.getApi().placeholder(player, message);
         return message;
     }
 }

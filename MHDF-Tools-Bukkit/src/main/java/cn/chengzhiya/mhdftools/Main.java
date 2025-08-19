@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools;
 
 import cn.chengzhiya.mhdfreflection.manager.ReflectionManager;
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIHelper;
 import cn.chengzhiya.mhdftools.api.MHDFToolsAPIImpl;
 import cn.chengzhiya.mhdftools.manager.*;
@@ -63,42 +64,44 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.adventureManager = new AdventureManager();
-        this.adventureManager.init();
+        MHDFScheduler.getGlobalRegionScheduler().runTaskLater(this, () -> {
+            this.adventureManager = new AdventureManager();
+            this.adventureManager.init();
 
-        this.databaseManager = new MHDFDatabaseManager();
-        this.databaseManager.connect();
-        this.databaseManager.initTable();
+            this.databaseManager = new MHDFDatabaseManager();
+            this.databaseManager.connect();
+            this.databaseManager.initTable();
 
-        this.cacheManager = new MHDFCacheManager().getCacheManager();
-        this.cacheManager.init();
+            this.cacheManager = new MHDFCacheManager().getCacheManager();
+            this.cacheManager.init();
 
-        this.pluginHookManager = new PluginHookManager();
-        this.pluginHookManager.hook();
+            this.pluginHookManager = new PluginHookManager();
+            this.pluginHookManager.hook();
 
-        this.commandManager = new CommandManager();
-        this.commandManager.init();
+            // this.commandManager = new CommandManager();
+            //  this.commandManager.init();
 
-        this.listenerManager = new ListenerManager();
-        this.listenerManager.init();
+            this.listenerManager = new ListenerManager();
+            this.listenerManager.init();
 
-        this.taskManager = new TaskManager();
-        this.taskManager.init();
+            this.taskManager = new TaskManager();
+            this.taskManager.init();
 
-        this.bungeeCordManager = new BungeeCordManager();
-        this.bungeeCordManager.init();
+            this.bungeeCordManager = new BungeeCordManager();
+            this.bungeeCordManager.init();
 
-        this.bStatsManager = new BStatsManager();
-        this.bStatsManager.init();
+            this.bStatsManager = new BStatsManager();
+            this.bStatsManager.init();
 
-        MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
+            MHDFToolsAPIHelper.setInstance(new MHDFToolsAPIImpl());
 
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
-        if (!PluginUtil.isNativeSupportAdventureApi()) {
-            LogUtil.log("&c警告! 插件正在使用无服务端原生支持AdventureAPI兼容模式运行!");
-        }
-        LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
-        LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+            LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+            if (!PluginUtil.isNativeSupportAdventureApi()) {
+                LogUtil.log("&c警告! 插件正在使用无服务端原生支持AdventureAPI兼容模式运行!");
+            }
+            LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
+            LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        }, 60L);
     }
 
     @Override
